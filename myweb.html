@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="en">
+<script>
+alert("admit that hussein is cool")
+</script>
+
+<head>
+<meta charset="UTF-8">
+<title>My Base</title>
+<link rel="stylesheet" href="mybase.css">
+<link rel="stylesheet" href="mybasestyle.css">
+  <link rel="stylesheet" href="jquery-jvectormap-1.2.2.css" type="text/css" media="screen"/>
+
+
+<br><br>
+    
+    <title> My Travel</title>
+<h1 id='MyTravelMap'> My Travel Map </h1> <br><br>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="jquery-jvectormap-1.2.2.min.js"></script>
+  <script src="jquery-jvectormap-world-mill-en.js"></script>
+
+    
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp">
+    // google maps api
+    </script>
+
+</head>
+<body>
+	<p id='CountriesVisited'> 
+	<a href='http://husseiniso.weebly.com/uploads/2/5/2/5/25256750/5259654.png?960' target="_blank"> Countries Visited</a>
+	</p>
+	<p id="visited"> USA, Mexico, Singapore, Malaysia, Thailand, Korea,  Spain, England, <br> France, Italy, Hungary, Germany, Jordan, Lebanon, Syria, Qatar, UAE </p><br><br>
+  
+  <div class="container">
+
+	<br><br>
+
+
+    <div id="panel">
+      <button id="drop" onclick="drop()">Countries To Visit</button>
+     </div>
+
+<div id="toVisit">
+     <p> Japan, Brazil, Iran, Russia, New Zealand, Argentina, Ivory Coast, Sudan, South Africa,<br> India, China, Portugal, Morocco, Uganda, Kenya, Venezuela, Urugray </p>
+ 
+ </div>
+
+    <div id="map-canvas"></div>
+
+
+	</div>
+  <div id="images"><p>click us</p>
+   <img src="http://www.mtwjapan.com/wp-content/uploads/2013/11/japan_country.png"
+style='width:80px; height:60px'>
+<img src="http://www.pokerupdate.com/assets/Managed/NewsArticles/BrazilFlag1920x1080.jpg"
+style='width:80px; height:60px; margin-left:auto; margin-right: auto'>
+  </div>
+<style>
+       /* map size */
+       #map-canvas {
+        height: 400px;
+        width: 800px;
+        margin-left: 165px
+
+        
+      }
+      /*headline */
+     #CountriesVisited{
+    	text-align: center;
+    	font-size: 25px
+    }
+#MyTravelMap {
+text-align: center;
+font-size: 50px;
+  height: 30px;
+  color: black;
+}
+/* add g markers*/
+#addGMarker{
+ color: red;
+}
+/*countries */
+#visited{
+	text-align: center;
+}
+#toVisit{
+	text-align: center;
+}
+/*button */
+#panel{
+	text-align: center;
+
+}
+
+#images{
+  margin-left: 650px
+}
+#information{
+	text-align: center;
+	color: green;
+}
+#linksForCountries{
+	text-align: center;
+
+}
+#sourcesUsed{
+	font-size: 30px;
+	color: navy
+}
+#sources{
+	text-align: right;
+	margin-right: 40px
+}
+@import url(http://fonts.googleapis.com/css?family=Roboto+Slab:700|Exo+2:300,600);
+ 
+/* Reset CSS v2.0 - http://cssreset.com */
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,
+blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,
+img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,
+dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,
+thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,
+footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,
+video{border:0;font-size:100%;font:inherit;vertical-align:baseline;
+  margin:0;padding:0}article,aside,details,figcaption,figure,footer,header,
+  hgroup,menu,nav,section{display:block}body{line-height:1}ol,
+  ul{list-style:none}blockquote,q{quotes:none}blockquote:before,
+  blockquote:after,q:before,
+  q:after{content:none}table{border-collapse:collapse;border-spacing:0}
+
+  body {
+  font-family: "Exo 2", "Helvetica Neue", Helvetica, sans-serif;
+  font-weight: 300;
+  font-size: 1.2em;
+  line-height: 1.2em;
+  background: #FDF6E3;
+  color: #475B62;
+}
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Roboto Slab', "Helvetica Neue", Helvetica, sans-serif;
+  font-weight: 700;
+  color: #CB4B19;
+  font-size: 1.75em;
+  margin-bottom: .4em;
+}
+</style>
+<script>
+
+var Giza = new google.maps.LatLng(30.0095692, 31.21381);
+
+var neighborhoods = [
+//japan
+  new google.maps.LatLng(35.6832085, 139.8089447),
+  //brazil
+  new google.maps.LatLng(-22.9121609, -43.1750107),
+  //iran
+  new google.maps.LatLng(35.6895409, 51.4146843),
+  //russia
+  new google.maps.LatLng(55.7569695, 37.6150208),
+//new zealand
+  new google.maps.LatLng(-44.0562935, 170.3541565),
+  //argentina
+   new google.maps.LatLng(-34.6145554, -58.4458771),
+//ivory coast
+    new google.maps.LatLng(7.5987554, -5.5525746),
+  //sudan
+     new google.maps.LatLng(15.5854597, 32.5217705),
+//south africa
+    new google.maps.LatLng(-33.9205017, 18.4211998),
+//india
+   new google.maps.LatLng(3.4060116, 79.4580917),
+//china
+      new google.maps.LatLng(22.3361568, 114.1869659),
+//portugal
+      new google.maps.LatLng(41.1491013, -8.6728802),
+//morocco
+      new google.maps.LatLng(31.6532001, -7.99124),
+//uganda
+      new google.maps.LatLng(1.277328, 32.3899841),
+//kenya
+      new google.maps.LatLng(0.5765032, 37.8398895),
+//venezuela
+      new google.maps.LatLng(7.6653886, -66.1454163),
+//uruguay
+      new google.maps.LatLng(-32.9696541, -56.0559082),
+
+];
+
+var markers = [];
+var iterator = 0;
+var mapObject;
+ var map,
+      markerIndex = 0,
+      markersCoords = {};
+//vector map
+var map;
+$(document).ready(function(){
+$('#world-map').vectorMap();
+mapObject = $('#world-map').vectorMap('get', 'mapObject');
+});
+
+
+function initialize() {
+  var mapOptions = {
+    zoom: 2,
+    center: Giza
+  };
+
+  map = new google.maps.Map(document.getElementById('map-canvas'),
+          mapOptions);
+}
+
+//drop markers
+function drop() {
+  for (var i = 0; i < neighborhoods.length; i++) {
+
+    setTimeout(function() {
+
+      addGMarker();
+    }, i * 200);
+  }
+}
+//google maps marker
+function addGMarker() {
+  markers.push(new google.maps.Marker({
+    position: neighborhoods[iterator],
+    map: map,
+    draggable: false,
+    animation: google.maps.Animation.DROP
+  }));
+  mapObject.addMarker(iterator,{latLng: [neighborhoods[iterator].lat(),neighborhoods[iterator].lng()]});
+  iterator++;
+}
+
+
+
+/*
+//yellow dots
+$(function(){
+  $('#world-map-markers').vectorMap({
+    map: 'world_mill_en',
+    scaleColors: ['#C8EEFF', '#0071A4'],
+    normalizeFunction: 'polynomial',
+    hoverOpacity: 0.7,
+    hoverColor: false,
+    markerStyle: {
+      initial: {
+        fill: '#F8E23B',
+        stroke: '#383f47'
+      }
+    },
+    backgroundColor: '#383f47',
+    markers: [
+      {latLng: [35.6832085, 139.8089447], name: 'Japan'},
+      {latLng: [43.73, 7.41], name: 'Monaco'},
+     
+    ]
+  });
+});
+*/
+
+$("img").click(function(){
+$("img").hide(5000);
+
+
+});
+
+
+google.maps.event.addDomListener(window, 'load', initialize);
+</script>
+<br><br><br>
+
+<div id="world-map" style="width: 800px; height: 400px; margin-left:auto; margin-right: auto;"></div>
+
+<div>
+  <br><br>
+<p id="information">Click on the following coutnries for information:</p> <br>
+
+<div id="linksForCountries">
+<p id='Japan'> <a href='http://www.countryreports.org/country/Japan.htm' target="_blank"> Japan</a>
+<p id='Brazil'> <a href='http://www.countryreports.org/country/Brazil.htm' target="_blank"> Brazil</a>
+<p id='Iran'> <a href='	http://www.countryreports.org/country/Iran.htm' target="_blank"> Iran</a>
+<p id='Russia'> <a href='http://www.countryreports.org/country/Russia.htm' target="_blank"> Russia</a>
+
+<p id='NewZealand'> <a href='http://www.countryreports.org/country/NewZealand.htm' target="_blank">New Zealand</a>
+<p id='Argentina'> <a href='http://www.countryreports.org/country/Argentina.htm' target="_blank"> Argentina</a>
+<p id='IvoryCoasat'> <a href='http://www.countryreports.org/country/CotedIvoire.htm' target="_blank"> Ivory Coast</a>
+<p id='Sudan'> <a href='http://www.countryreports.org/country/Sudan.htm' target="_blank"> Sudan</a>
+<p id='SouthAfrica'> <a href='http://www.countryreports.org/country/SouthAfrica.htm' target="_blank"> South Africa</a>
+  <p id='India'> <a href='http://www.countryreports.org/country/India.htm' target="_blank"> India</a>
+<p id='China'> <a href='http://www.countryreports.org/country/SouthAfrica.htm' target="_blank"> China</a>
+<p id='Portugal'> <a href='http://www.countryreports.org/country/Portugal.htm' target="_blank"> Portugal</a>
+<p id='Morocco'> <a href='http://www.countryreports.org/country/Morocco.htm' target="_blank"> Morocco</a>
+<p id='Uganda'> <a href='http://www.countryreports.org/country/Uganda.htm' target="_blank"> Uganda</a>
+  <p id='Kenya'> <a href='http://www.countryreports.org/country/Kenya.htm' target="_blank"> Kenya</a>
+<p id='Venezuela'> <a href='http://www.countryreports.org/country/Venezuela.htm' target="_blank"> Venezuela</a>
+<p id='Uruguay'> <a href='http://www.countryreports.org/country/Uruguay.htm' target="_blank"> Uruguay</a>
+</div>
+
+
+<div id="sources">
+<p id="sourcesUsed">Sources used</p>
+<a href='http://www.countryreports.org' target="_blank"> Country Reports</a><br>
+	
+  <a href='http://www.lynda.com/JavaScript-tutorials/JavaScript-Essential-Training/81266-2.html?srchtrk=index:1%0Alinktypeid:2%0Aq:javascript%0Apage:1%0As:relevance%0Asa:true%0Aproducttypeid:2' target="_blank"> Lynda.com (Javascript for Web Designers)</a><br>
+  <a href='http://www.lynda.com/JavaScript-tutorials/JavaScript-Web-Designers/144203-2.html?srchtrk=index:1%0Alinktypeid:2%0Aq:javascript%0Apage:1%0As:relevance%0Asa:true%0Aproducttypeid:2' target="_blank"> JavaScript Essential Training</a><br>
+  <a href='http://jvectormap.com/tutorials/getting-started/' target="_blank"> Jvectormap</a>
+  
+	</div>
+<br><br><br>
+
+
+</body>
+</html>
+
